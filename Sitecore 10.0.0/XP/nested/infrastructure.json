@@ -384,8 +384,8 @@
             "Replicas": "[parameters('searchServiceReplicaCount')]"
           },
           "redisCache": {
-            "SkuName": "Standard",
-            "SkuFamily": "C",
+            "SkuName": "Premium",
+            "SkuFamily": "P",
             "SkuCapacity": 1
           },
           "applicationInsightsPricePlan": {
@@ -477,8 +477,8 @@
             "Replicas": "[parameters('searchServiceReplicaCount')]"
           },
           "redisCache": {
-            "SkuName": "Standard",
-            "SkuFamily": "C",
+            "SkuName": "Premium",
+            "SkuFamily": "P",
             "SkuCapacity": 1
           },
           "applicationInsightsPricePlan": {
@@ -570,8 +570,8 @@
             "Replicas": "[parameters('searchServiceReplicaCount')]"
           },
           "redisCache": {
-            "SkuName": "Standard",
-            "SkuFamily": "C",
+            "SkuName": "Premium",
+            "SkuFamily": "P",
             "SkuCapacity": 1
           },
           "applicationInsightsPricePlan": {
@@ -663,8 +663,8 @@
             "Replicas": "[parameters('searchServiceReplicaCount')]"
           },
           "redisCache": {
-            "SkuName": "Standard",
-            "SkuFamily": "C",
+            "SkuName": "Premium",
+            "SkuFamily": "P",
             "SkuCapacity": 1
           },
           "applicationInsightsPricePlan": {
@@ -756,8 +756,8 @@
             "Replicas": "[parameters('searchServiceReplicaCount')]"
           },
           "redisCache": {
-            "SkuName": "Standard",
-            "SkuFamily": "C",
+            "SkuName": "Premium",
+            "SkuFamily": "P",
             "SkuCapacity": 1
           },
           "applicationInsightsPricePlan": {
@@ -849,9 +849,9 @@
             "Replicas": "[parameters('searchServiceReplicaCount')]"
           },
           "redisCache": {
-            "SkuName": "Standard",
-            "SkuFamily": "C",
-            "SkuCapacity": 2
+            "SkuName": "Premium",
+            "SkuFamily": "P",
+            "SkuCapacity": 1
           },
           "applicationInsightsPricePlan": {
             "CurrentBillingFeatures": "Application Insights Enterprise",
@@ -942,9 +942,9 @@
             "Replicas": "[parameters('searchServiceReplicaCount')]"
           },
           "redisCache": {
-            "SkuName": "Standard",
-            "SkuFamily": "C",
-            "SkuCapacity": 3
+            "SkuName": "Premium",
+            "SkuFamily": "P",
+            "SkuCapacity": 1
           },
           "applicationInsightsPricePlan": {
             "CurrentBillingFeatures": "Application Insights Enterprise",
