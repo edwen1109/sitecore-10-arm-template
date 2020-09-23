@@ -1,9 +1,5 @@
 # Sitecore XP Environment
 
-Visualize:
-[Infrastructure](http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FSitecore%2Fsitecore-azure-quickstart-templates%2Fmaster%2FSitecore%209.0.0%2Fxp%2Fnested%2Finfrastructure.json),
-[Application deployment](http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FSitecore%2Fsitecore-azure-quickstart-templates%2Fmaster%2FSitecore%209.0.0%2Fxp%2Fnested%2Fapplication.json)
-
 This template creates a Sitecore XP Environment with all resources necessary to run Sitecore.
 
 Resources provisioned:
@@ -14,7 +10,7 @@ Resources provisioned:
 	  * Hosting plans: one per role
 	  * Preconfigured Web Applications, based on the provided WebDeploy packages
   * XConnect services: Search, Collection, Reference data, Marketing Automation, Marketing Automation Reporting
-	  * Hosting Plans: XConnect Basic, XConnect Resource Intensive
+	  * Hosting Plans: XConnect, XConnect Basic, XConnect Resource Intensive
 	  * Preconfigured Web Applications, based on the provided WebDeploy packages
   * Azure Search Service
   * (optional) Application Insights for diagnostics and monitoring
@@ -74,3 +70,5 @@ The **deploymentId** and **licenseXml** parameters in azuredeploy.parameters.jso
 --------------------------------------------|------------------------------------------------
 | aseName                                   | Name of deployed App Service Environment
 | aseResourceGroupName                      | Resource group where App Service Environment is deployed. Provide this value if ASE is hosted in different resouce group
+| dmzAseName                                | Name of deployed App Service Environment in DMZ
+| dmzAseResourceGroupName                   | Resource group where App Service Environment in DMZ is deployed. Provide this value if ASE is hosted in different resouce group

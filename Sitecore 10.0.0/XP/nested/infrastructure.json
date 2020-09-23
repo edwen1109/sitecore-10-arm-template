@@ -56,6 +56,7 @@
 
     "useAse": "[not(empty(parameters('aseName')))]",
     "aseResourceId": "[resourceId(parameters('aseResourceGroupName'), 'Microsoft.Web/hostingEnvironments', parameters('aseName'))]",
+    "dmzAseResourceId": "[resourceId(parameters('dmzAseResourceGroupName'), 'Microsoft.Web/hostingEnvironments', parameters('dmzAseName'))]",
     "hostingPlanProperties":{
       "siProperties":{
         "name": "[variables('siHostingPlanNameTidy')]"
@@ -81,7 +82,7 @@
       "cdPropertiesWithASE":{
         "name": "[variables('cdHostingPlanNameTidy')]",
         "hostingEnvironmentProfile": {
-          "id": "[variables('aseResourceId')]"
+          "id": "[variables('dmzAseResourceId')]"
         }
       },
       "prcProperties":{

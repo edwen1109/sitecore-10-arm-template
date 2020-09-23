@@ -14,6 +14,7 @@
     "refDataSqlDatabaseNameTidy": "[toLower(trim(parameters('refDataSqlDatabaseName')))]",
     "refDataSqlDatabaseCollation": "Latin1_General_CS_AS",
 
+    "xcHostingPlanNameTidy": "[toLower(trim(parameters('xcHostingPlanName')))]",
     "xcBasicHostingPlanNameTidy": "[toLower(trim(parameters('xcBasicHostingPlanName')))]",
     "xcResourceIntensiveHostingPlanNameTidy": "[toLower(trim(parameters('xcResourceIntensiveHostingPlanName')))]",
 
@@ -35,7 +36,17 @@
 
     "useAse": "[not(empty(parameters('aseName')))]",
     "aseResourceId": "[resourceId(parameters('aseResourceGroupName'), 'Microsoft.Web/hostingEnvironments', parameters('aseName'))]",
+    "dmzAseResourceId": "[resourceId(parameters('dmzAseResourceGroupName'), 'Microsoft.Web/hostingEnvironments', parameters('dmzAseName'))]",
     "hostingPlanProperties": {
+      "xcProperties": {
+        "name": "[variables('xcHostingPlanNameTidy')]"
+      },
+      "xcPropertiesWithASE": {
+        "name": "[variables('xcHostingPlanNameTidy')]",
+        "hostingEnvironmentProfile": {
+          "id": "[variables('dmzAseResourceId')]"
+        }
+      },
       "xcBasicProperties": {
         "name": "[variables('xcBasicHostingPlanNameTidy')]"
       },
@@ -107,7 +118,11 @@
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-refdata-db')]"
     },
-
+    "xcHostingPlanName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-hp')]"
+    },
     "xcBasicHostingPlanName": {
       "type": "string",
       "minLength": 1,
@@ -417,6 +432,14 @@
     "aseResourceGroupName":{
       "type": "string",
       "defaultValue": "[resourceGroup().name]"
+    },
+    "dmzAseName":{
+      "type": "string",
+      "defaultValue": ""
+    },
+    "dmzAseResourceGroupName":{
+      "type": "string",
+      "defaultValue": "[resourceGroup().name]"
     }
   },
   "resources": [
@@ -454,6 +477,21 @@
       ]
     },
     {
+      "type": "Microsoft.Web/serverfarms",
+      "name": "[variables('xcHostingPlanNameTidy')]",
+      "apiVersion": "[variables('serverFarmApiVersion')]",
+      "sku": {
+        "name": "[if(not(variables('useAse')), parameters('resourceSizes').xcBasicHostingPlan.SkuName, parameters('resourceSizes').xcBasicHostingPlanIsolated.SkuName)]",
+        "capacity": "[if(not(variables('useAse')), parameters('resourceSizes').xcBasicHostingPlan.SkuCapacity, parameters('resourceSizes').xcBasicHostingPlanIsolated.SkuCapacity)]"
+      },
+      "properties": "[if(not(variables('useAse')), variables('hostingPlanProperties').xcProperties, variables('hostingPlanProperties').xcPropertiesWithASE)]",
+      "location": "[parameters('location')]",
+      "tags": {
+        "provider": "[variables('sitecoreTags').provider]",
+        "logicalName": "[variables('sitecoreTags').xc]"
+      }
+    },
+    {
       "type": "Microsoft.Web/sites",
       "name": "[variables('xcRefDataWebAppNameTidy')]",
       "apiVersion": "[variables('webApiVersion')]",
@@ -472,6 +510,31 @@
       "location": "[parameters('location')]",
       "dependsOn": [
         "[resourceId('Microsoft.Web/serverfarms', variables('xcResourceIntensiveHostingPlanNameTidy'))]"
+      ],
+      "tags": {
+        "provider": "[variables('sitecoreTags').provider]",
+        "logicalName": "[variables('sitecoreTags').xcRefData]"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "name": "[variables('xcRefDataWebAppNameTidy')]",
+      "apiVersion": "[variables('webApiVersion')]",
+      "properties": {
+        "clientCertEnabled": true,
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('xcHostingPlanNameTidy'))]",
+        "siteConfig": {
+          "use32BitWorkerProcess": false,
+          "alwaysOn": true,
+          "phpVersion": "",
+          "defaultDocuments": [
+            "index.html"
+          ]
+        }
+      },
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', variables('xcHostingPlanNameTidy'))]"
       ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
@@ -526,6 +589,31 @@
       "location": "[parameters('location')]",
       "dependsOn": [
         "[resourceId('Microsoft.Web/serverfarms', variables('xcResourceIntensiveHostingPlanNameTidy'))]"
+      ],
+      "tags": {
+        "provider": "[variables('sitecoreTags').provider]",
+        "logicalName": "[variables('sitecoreTags').xcCollect]"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "name": "[variables('xcCollectWebAppNameTidy')]",
+      "apiVersion": "[variables('webApiVersion')]",
+      "properties": {
+        "clientCertEnabled": true,
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('xcHostingPlanNameTidy'))]",
+        "siteConfig": {
+          "use32BitWorkerProcess": false,
+          "alwaysOn": true,
+          "phpVersion": "",
+          "defaultDocuments": [
+            "index.html"
+          ]
+        }
+      },
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', variables('xcHostingPlanNameTidy'))]"
       ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
@@ -638,6 +726,31 @@
       "location": "[parameters('location')]",
       "dependsOn": [
         "[resourceId('Microsoft.Web/serverfarms', variables('xcBasicHostingPlanNameTidy'))]"
+      ],
+      "tags": {
+        "provider": "[variables('sitecoreTags').provider]",
+        "logicalName": "[variables('sitecoreTags').xcSearch]"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "name": "[variables('xcSearchWebAppNameTidy')]",
+      "apiVersion": "[variables('webApiVersion')]",
+      "properties": {
+        "clientCertEnabled": true,
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('xcHostingPlanNameTidy'))]",
+        "siteConfig": {
+          "use32BitWorkerProcess": false,
+          "alwaysOn": true,
+          "phpVersion": "",
+          "defaultDocuments": [
+            "index.html"
+          ]
+        }
+      },
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', variables('xcHostingPlanNameTidy'))]"
       ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",

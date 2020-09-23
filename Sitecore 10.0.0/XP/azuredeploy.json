@@ -430,6 +430,11 @@
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-rep-hp')]"
     },
+    "xcHostingPlanName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-hp')]"
+    },
     "xcBasicHostingPlanName": {
       "type": "string",
       "minLength": 1,
@@ -662,6 +667,14 @@
       "type": "string",
       "defaultValue": "[resourceGroup().name]"
     },
+    "dmzAseName":{
+      "type": "string",
+      "defaultValue": ""
+    },
+    "dmzAseResourceGroupName":{
+      "type": "string",
+      "defaultValue": "[resourceGroup().name]"
+    },
     "cmNodeJsVersion":{
       "type": "string",
       "defaultValue": "8.11.1"
@@ -886,6 +899,13 @@
           },
           "aseResourceGroupName":{
             "value": "[parameters('aseResourceGroupName')]"
+          },
+
+          "dmzAseName": {
+            "value": "[parameters('dmzAseName')]"
+          },
+          "dmzAseResourceGroupName":{
+            "value": "[parameters('dmzAseResourceGroupName')]"
           }
         }
       },
@@ -976,7 +996,9 @@
           "refDataSqlDatabaseName": {
             "value": "[parameters('refDataSqlDatabaseName')]"
           },
-
+          "xcHostingPlanName": {
+            "value": "[parameters('xcHostingPlanName')]"
+          },
           "xcBasicHostingPlanName": {
             "value": "[parameters('xcBasicHostingPlanName')]"
           },
@@ -999,6 +1021,13 @@
           },
           "aseResourceGroupName":{
             "value": "[parameters('aseResourceGroupName')]"
+          },
+
+          "dmzAseName": {
+            "value": "[parameters('dmzAseName')]"
+          },
+          "dmzAseResourceGroupName":{
+            "value": "[parameters('dmzAseResourceGroupName')]"
           }
         }
       },
@@ -1075,7 +1104,9 @@
           "maSqlDatabaseName": {
             "value": "[parameters('maSqlDatabaseName')]"
           },
-
+          "xcHostingPlanName": {
+            "value": "[parameters('xcHostingPlanName')]"
+          },
           "xcBasicHostingPlanName": {
             "value": "[parameters('xcBasicHostingPlanName')]"
           },
@@ -2136,6 +2167,7 @@
               "cdHostingPlanName": "[parameters('cdHostingPlanName')]",
               "prcHostingPlanName": "[parameters('prcHostingPlanName')]",
               "repHostingPlanName": "[parameters('repHostingPlanName')]",
+              "xcHostingPlanName": "[parameters('xcHostingPlanName')]",
               "xcBasicHostingPlanName": "[parameters('xcBasicHostingPlanName')]",
               "xcResourceIntensiveHostingPlanName": "[parameters('xcResourceIntensiveHostingPlanName')]",
 
