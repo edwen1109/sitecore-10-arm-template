@@ -6,7 +6,7 @@
       "value": ""
     },
     "location": {
-      "value": ""
+      "value": "Southeast Asia"
     },
     "sitecoreAdminPassword": {
       "value": ""
@@ -15,7 +15,7 @@
       "value": ""
     },
     "repAuthenticationApiKey": {
-      "value": ""
+      "value": "58588d50667e47b0a02cb919185f7c31"
     },
     "sqlServerLogin": {
       "value": ""
@@ -24,40 +24,34 @@
       "value": ""
     },
     "siMsDeployPackageUrl": {
-      "value": ""
+      "value": "<your storage account URL>/sitecore-packages/Sitecore.IdentityServer.5.0.0-r00277.scwdp.zip"
     },
     "cmMsDeployPackageUrl": {
-      "value": ""
+      "value": "<your storage account URL>/sitecore-packages/Sitecore 10.0.0 rev. 004346 (Cloud)_cm.scwdp.zip"
     },
     "cdMsDeployPackageUrl": {
-      "value": ""
+      "value": "<your storage account URL>/sitecore-packages/Sitecore 10.0.0 rev. 004346 (Cloud)_cd.scwdp.zip"
     },
     "prcMsDeployPackageUrl": {
-      "value": ""
+      "value": "<your storage account URL>/sitecore-packages/Sitecore 10.0.0 rev. 004346 (Cloud)_prc.scwdp.zip"
     },
     "repMsDeployPackageUrl": {
-      "value": ""
+      "value": "<your storage account URL>/sitecore-packages/Sitecore 10.0.0 rev. 004346 (Cloud)_rep.scwdp.zip"
     },
     "xcRefDataMsDeployPackageUrl": {
-      "value": ""
+      "value": "<your storage account URL>/sitecore-packages/Sitecore 10.0.0 rev. 004346 (Cloud)_xp1referencedata.scwdp.zip"
     },
     "xcCollectMsDeployPackageUrl": {
-      "value": ""
+      "value": "<your storage account URL>/sitecore-packages/Sitecore 10.0.0 rev. 004346 (Cloud)_xp1collection.scwdp.zip"
     },
     "xcSearchMsDeployPackageUrl": {
-      "value": ""
-    },
-    "cortexProcessingMsDeployPackageUrl": {
-      "value": ""
-    },
-    "cortexReportingMsDeployPackageUrl": {
-      "value": ""
+      "value": "<your storage account URL>/sitecore-packages/Sitecore 10.0.0 rev. 004346 (Cloud)_xp1collectionsearchsolr.scwdp.zip"
     },
     "maOpsMsDeployPackageUrl": {
-      "value": ""
+      "value": "<your storage account URL>/sitecore-packages/Sitecore 10.0.0 rev. 004346 (Cloud)_xp1marketingautomation.scwdp.zip"
     },
     "maRepMsDeployPackageUrl": {
-      "value": ""
+      "value": "<your storage account URL>/sitecore-packages/Sitecore 10.0.0 rev. 004346 (Cloud)_xp1marketingautomationreporting.scwdp.zip"
     },
     "authCertificateBlob": {
       "value": ""
@@ -65,22 +59,22 @@
     "authCertificatePassword": {
       "value": ""
     },
-    "machineLearningServerConnectionString": {
+    "allowInvalidClientCertificates": {  
+      "value": true  
+    },
+    "solrConnectionString":{
+      "value": "https://sitecore-solr.azurewebsites.net/solr"
+    },
+    "aseName": {
       "value": ""
     },
-    "machineLearningServerBlobEndpointCertificatePath": {
+    "aseResourceGroupName": {
       "value": ""
     },
-    "machineLearningServerBlobEndpointCertificatePassword": {
+    "dmzAseName": {
       "value": ""
     },
-    "machineLearningServerTableEndpointCertificatePath": {
-      "value": ""
-    },
-    "machineLearningServerTableEndpointCertificatePassword": {
-      "value": ""
-    },
-    "machineLearningServerEndpointCertificationAuthorityCertificatePath": {
+    "dmzAseResourceGroupName": {
       "value": ""
     }
   }
