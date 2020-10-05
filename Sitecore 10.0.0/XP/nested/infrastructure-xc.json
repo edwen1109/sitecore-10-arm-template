@@ -18,6 +18,10 @@
     "xcBasicHostingPlanNameTidy": "[toLower(trim(parameters('xcBasicHostingPlanName')))]",
     "xcResourceIntensiveHostingPlanNameTidy": "[toLower(trim(parameters('xcResourceIntensiveHostingPlanName')))]",
 
+    "xcRefDataDmzWebAppNameTidy": "[toLower(trim(parameters('xcRefDataDmzWebAppName')))]",
+    "xcCollectDmzWebAppNameTidy": "[toLower(trim(parameters('xcCollectDmzWebAppName')))]",
+    "xcSearchDmzWebAppNameTidy": "[toLower(trim(parameters('xcSearchDmzWebAppName')))]",
+
     "xcRefDataWebAppNameTidy": "[toLower(trim(parameters('xcRefDataWebAppName')))]",
     "xcCollectWebAppNameTidy": "[toLower(trim(parameters('xcCollectWebAppName')))]",
     "xcSearchWebAppNameTidy": "[toLower(trim(parameters('xcSearchWebAppName')))]",
@@ -133,7 +137,11 @@
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-xc-resourceintensive-hp')]"
     },
-
+    "xcRefDataDmzWebAppName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-refdata-dmz')]"
+    },
     "xcRefDataWebAppName": {
       "type": "string",
       "minLength": 1,
@@ -144,10 +152,20 @@
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-xc-collect')]"
     },
+    "xcCollectDmzWebAppName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-collect-dmz')]"
+    },
     "xcSearchWebAppName": {
       "type": "string",
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-xc-search')]"
+    },
+    "xcSearchDmzWebAppName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-search-dmz')]"
     },
 
     "skuMap": {
@@ -518,7 +536,7 @@
     },
     {
       "type": "Microsoft.Web/sites",
-      "name": "[variables('xcRefDataWebAppNameTidy')]",
+      "name": "[variables('xcRefDataDmzWebAppNameTidy')]",
       "apiVersion": "[variables('webApiVersion')]",
       "properties": {
         "clientCertEnabled": true,
@@ -597,7 +615,7 @@
     },
     {
       "type": "Microsoft.Web/sites",
-      "name": "[variables('xcCollectWebAppNameTidy')]",
+      "name": "[variables('xcCollectDmzWebAppNameTidy')]",
       "apiVersion": "[variables('webApiVersion')]",
       "properties": {
         "clientCertEnabled": true,
@@ -734,7 +752,7 @@
     },
     {
       "type": "Microsoft.Web/sites",
-      "name": "[variables('xcSearchWebAppNameTidy')]",
+      "name": "[variables('xcSearchDmzWebAppNameTidy')]",
       "apiVersion": "[variables('webApiVersion')]",
       "properties": {
         "clientCertEnabled": true,

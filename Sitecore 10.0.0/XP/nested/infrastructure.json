@@ -966,6 +966,14 @@
     "aseResourceGroupName":{
       "type": "string",
       "defaultValue": "[resourceGroup().name]"
+    },
+    "dmzAseName":{
+      "type": "string",
+      "defaultValue": ""
+    },
+    "dmzAseResourceGroupName":{
+      "type": "string",
+      "defaultValue": "[resourceGroup().name]"
     }
   },
   "resources": [

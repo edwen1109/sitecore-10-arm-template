@@ -1069,6 +1069,12 @@
           },
           "aseResourceGroupName":{
             "value": "[parameters('aseResourceGroupName')]"
+          },
+          "dmzAseName": {
+            "value": "[parameters('dmzAseName')]"
+          },
+          "dmzAseResourceGroupName":{
+            "value": "[parameters('dmzAseResourceGroupName')]"
           }
         }
       }
