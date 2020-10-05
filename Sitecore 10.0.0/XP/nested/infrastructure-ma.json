@@ -59,6 +59,11 @@
       "defaultValue": "[concat(parameters('deploymentId'), '-ma-db')]"
     },
 
+    "xcHostingPlanName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-hp')]"
+    },
     "xcBasicHostingPlanName": {
       "type": "string",
       "minLength": 1,

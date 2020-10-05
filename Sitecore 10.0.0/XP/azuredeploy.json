@@ -1116,7 +1116,6 @@
           "xcBasicHostingPlanName": {
             "value": "[parameters('xcBasicHostingPlanName')]"
           },
-
           "maOpsWebAppName": {
             "value": "[parameters('maOpsWebAppName')]"
           },
