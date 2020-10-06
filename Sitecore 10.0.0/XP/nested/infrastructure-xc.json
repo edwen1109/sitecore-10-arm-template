@@ -140,7 +140,7 @@
     "xcRefDataDmzWebAppName": {
       "type": "string",
       "minLength": 1,
-      "defaultValue": "[concat(parameters('deploymentId'), '-xc-refdata-dmz')]"
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-refdata-public')]"
     },
     "xcRefDataWebAppName": {
       "type": "string",
@@ -155,7 +155,7 @@
     "xcCollectDmzWebAppName": {
       "type": "string",
       "minLength": 1,
-      "defaultValue": "[concat(parameters('deploymentId'), '-xc-collect-dmz')]"
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-collect-public')]"
     },
     "xcSearchWebAppName": {
       "type": "string",
@@ -165,7 +165,7 @@
     "xcSearchDmzWebAppName": {
       "type": "string",
       "minLength": 1,
-      "defaultValue": "[concat(parameters('deploymentId'), '-xc-search-dmz')]"
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-search-public')]"
     },
 
     "skuMap": {

@@ -13,6 +13,7 @@
     "xcBasicHostingPlanNameTidy": "[toLower(trim(parameters('xcBasicHostingPlanName')))]",
 
     "maOpsWebAppNameTidy": "[toLower(trim(parameters('maOpsWebAppName')))]",
+    "maOpsDmzWebAppNameTidy": "[toLower(trim(parameters('maOpsDmzWebAppName')))]",
     "maRepWebAppNameTidy": "[toLower(trim(parameters('maRepWebAppName')))]",
 
     "sitecoreTags": {
@@ -74,6 +75,11 @@
       "type": "string",
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-ma-ops')]"
+    },
+    "maOpsDmzWebAppName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-ma-ops-public')]"
     },
     "maRepWebAppName": {
       "type": "string",
@@ -216,7 +222,7 @@
     },
     {
       "type": "Microsoft.Web/sites",
-      "name": "[variables('maOpsWebAppNameTidy')]",
+      "name": "[variables('maOpsDmzWebAppNameTidy')]",
       "apiVersion": "[variables('webApiVersion')]",
       "properties": {
         "clientCertEnabled": true,
