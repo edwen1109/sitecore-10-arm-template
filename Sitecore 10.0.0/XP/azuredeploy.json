@@ -1307,10 +1307,6 @@
           "xcRefDataWebAppName": {
             "value": "[parameters('xcRefDataWebAppName')]"
           },
-          "cortexReportingWebAppName": {
-            "value": "[parameters('cortexReportingWebAppName')]"
-          },
-
           "siMsDeployPackageUrl": {
             "value": "[parameters('siMsDeployPackageUrl')]"
           },
