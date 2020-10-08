@@ -31,6 +31,7 @@
     "maOpsWebAppNameTidy": "[toLower(trim(parameters('maOpsWebAppName')))]",
     "maRepWebAppNameTidy": "[toLower(trim(parameters('maRepWebAppName')))]",
     "xcRefDataWebAppNameTidy": "[toLower(trim(parameters('xcRefDataWebAppName')))]",
+    "cortexReportingWebAppNameTidy": "[toLower(trim(parameters('cortexReportingWebAppName')))]",
 
     "appInsightsNameTidy": "[toLower(trim(parameters('applicationInsightsName')))]",
 
@@ -347,11 +348,18 @@
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-xc-refdata')]"
     },
+    "cortexReportingWebAppName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-cortex-reporting')]"
+    },
+
     "authCertificateThumbprint": {
       "type": "string",
       "minLength": 8,
       "defaultValue": "[parameters('infrastructure').authCertificateThumbprint]"
     },
+
     "siMsDeployPackageUrl": {
       "type": "securestring",
       "minLength": 1
@@ -544,6 +552,7 @@
               "XDB Reference Data Client": "[concat('https://', reference(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.Web/sites', variables('xcRefDataWebAppNameTidy')), variables('webApiVersion')).hostNames[0])]",
               "XDB MA Reporting Client": "[concat('https://', reference(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.Web/sites', variables('maRepWebAppNameTidy')), variables('webApiVersion')).hostNames[0])]",
               "XDB MA Ops Client": "[concat('https://', reference(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.Web/sites', variables('maOpsWebAppNameTidy')), variables('webApiVersion')).hostNames[0])]",
+              "Cortex Reporting Client": "[concat('https://', reference(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.Web/sites', variables('cortexReportingWebAppNameTidy')), variables('webApiVersion')).hostNames[0])]",
               "Search Provider": "[variables('searchProvider')]",
               "Cloud Search Connection String": "[if(equals(variables('searchProvider'), 'Azure'), concat('serviceUrl=https://', variables('searchServiceNameTidy'), '.search.windows.net;apiVersion=', variables('searchRestApiVersion'), ';apiKey=', listAdminKeys(resourceId('Microsoft.Search/searchServices', variables('searchServiceNameTidy')), variables('searchApiVersion')).primaryKey), '')]",
               "SOLR Connection String": "[parameters('solrConnectionString')]",
@@ -564,6 +573,7 @@
               "XDB Reference Data Client Certificate": "[concat('StoreName=My;StoreLocation=CurrentUser;FindType=FindByThumbprint;FindValue=', parameters('authCertificateThumbprint'))]",
               "XDB MA Reporting Client Certificate": "[concat('StoreName=My;StoreLocation=CurrentUser;FindType=FindByThumbprint;FindValue=', parameters('authCertificateThumbprint'))]",
               "XDB MA Ops Client Certificate": "[concat('StoreName=My;StoreLocation=CurrentUser;FindType=FindByThumbprint;FindValue=', parameters('authCertificateThumbprint'))]",
+              "Cortex Reporting Client Certificate": "[concat('StoreName=My;StoreLocation=CurrentUser;FindType=FindByThumbprint;FindValue=', parameters('authCertificateThumbprint'))]",
               "Allow Invalid Client Certificates": "[parameters('allowInvalidClientCertificates')]",
               "License Xml": "[parameters('licenseXml')]"
             }

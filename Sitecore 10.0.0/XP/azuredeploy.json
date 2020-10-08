@@ -546,6 +546,12 @@
     "maRepMsDeployPackageUrl": {
       "type": "securestring"
     },
+    "cortexProcessingMsDeployPackageUrl": {
+      "type": "securestring"
+    },
+    "cortexReportingMsDeployPackageUrl": {
+      "type": "securestring"
+    },
     "exmDdsMsDeployPackageUrl": {
       "type": "securestring",
       "defaultValue": ""
@@ -1124,6 +1130,63 @@
     },
     {
       "apiVersion": "[variables('resourcesApiVersion')]",
+      "name": "[concat(parameters('deploymentId'), '-infrastructure-cortex-prc-rep')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(uri(parameters('templateLinkBase'), 'nested/infrastructure-cortex-prc-rep.json'), parameters('templateLinkAccessToken'))]"
+        },
+        "parameters": {
+          "deploymentId": {
+            "value": "[parameters('deploymentId')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "sitecoreSKU": {
+            "value": "[parameters('sitecoreSKU')]"
+          },
+
+          "sqlServerName": {
+            "value": "[parameters('sqlServerName')]"
+          },
+
+          "sqlDatabaseCollation": {
+            "value": "[parameters('sqlDatabaseCollation')]"
+          },
+
+          "processingEngineTasksSqlDatabaseName": {
+            "value": "[parameters('processingEngineTasksSqlDatabaseName')]"
+          },
+          "processingEngineStorageSqlDatabaseName": {
+            "value": "[parameters('processingEngineStorageSqlDatabaseName')]"
+          },
+          "reportingSqlDatabaseName": {
+            "value": "[parameters('reportingSqlDatabaseName')]"
+          },
+
+          "xcBasicHostingPlanName": {
+            "value": "[parameters('xcBasicHostingPlanName')]"
+          },
+          "xcResourceIntensiveHostingPlanName": {
+            "value": "[parameters('xcResourceIntensiveHostingPlanName')]"
+          },
+
+          "cortexProcessingWebAppName": {
+            "value": "[parameters('cortexProcessingWebAppName')]"
+          },
+          "cortexReportingWebAppName": {
+            "value": "[parameters('cortexReportingWebAppName')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments',concat(parameters('deploymentId'), '-infrastructure-xc'))]"
+      ]
+    },
+    {
+      "apiVersion": "[variables('resourcesApiVersion')]",
       "name": "[concat(parameters('deploymentId'), '-application')]",
       "condition": "[parameters('deployPlatform')]",
       "type": "Microsoft.Resources/deployments",
@@ -1307,6 +1370,10 @@
           "xcRefDataWebAppName": {
             "value": "[parameters('xcRefDataWebAppName')]"
           },
+          "cortexReportingWebAppName": {
+            "value": "[parameters('cortexReportingWebAppName')]"
+          },
+
           "siMsDeployPackageUrl": {
             "value": "[parameters('siMsDeployPackageUrl')]"
           },
@@ -1669,6 +1736,145 @@
         }
       },
       "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-application-xc'))]",
+        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-infrastructure-asb'))]"
+      ]
+    },
+    {
+      "apiVersion": "[variables('resourcesApiVersion')]",
+      "name": "[concat(parameters('deploymentId'), '-application-cortex-prc-rep')]",
+      "condition": "[parameters('deployXConnect')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(uri(parameters('templateLinkBase'), 'nested/application-cortex-prc-rep.json'), parameters('templateLinkAccessToken'))]"
+        },
+        "parameters": {
+          "infrastructure": {
+            "value": "[reference(concat(parameters('deploymentId'), '-infrastructure')).outputs.infrastructure.value]"
+          },
+
+          "deploymentId": {
+            "value": "[parameters('deploymentId')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+
+          "sitecoreAdminPassword": {
+            "value": "[parameters('sitecoreAdminPassword')]"
+          },
+          "licenseXml": {
+            "value": "[parameters('licenseXml')]"
+          },
+
+          "sqlServerLogin": {
+            "value": "[parameters('sqlServerLogin')]"
+          },
+          "sqlServerPassword": {
+            "value": "[parameters('sqlServerPassword')]"
+          },
+
+          "processingEngineTasksSqlDatabaseName": {
+            "value": "[parameters('processingEngineTasksSqlDatabaseName')]"
+          },
+          "processingEngineStorageSqlDatabaseName": {
+            "value": "[parameters('processingEngineStorageSqlDatabaseName')]"
+          },
+          "reportingSqlDatabaseName": {
+            "value": "[parameters('reportingSqlDatabaseName')]"
+          },
+
+          "processingEngineSqlDatabaseUserName": {
+            "value": "[parameters('processingEngineSqlDatabaseUserName')]"
+          },
+          "processingEngineSqlDatabasePassword": {
+            "value": "[parameters('processingEngineSqlDatabasePassword')]"
+          },
+          "reportingSqlDatabaseUserName": {
+            "value": "[parameters('reportingSqlDatabaseUserName')]"
+          },
+          "reportingSqlDatabasePassword": {
+            "value": "[parameters('reportingSqlDatabasePassword')]"
+          },
+
+          "useApplicationInsights": {
+            "value": "[parameters('useApplicationInsights')]"
+          },
+          "applicationInsightsName": {
+            "value": "[parameters('applicationInsightsName')]"
+          },
+
+          "xcCollectWebAppName": {
+            "value": "[parameters('xcCollectWebAppName')]"
+          },
+          "xcSearchWebAppName": {
+            "value": "[parameters('xcSearchWebAppName')]"
+          },
+          "cortexProcessingWebAppName": {
+            "value": "[parameters('cortexProcessingWebAppName')]"
+          },
+          "cortexReportingWebAppName": {
+            "value": "[parameters('cortexReportingWebAppName')]"
+          },
+
+          "machineLearningServerConnectionString": {
+            "value": "[parameters('machineLearningServerConnectionString')]"
+          },
+
+          "cortexProcessingMsDeployPackageUrl": {
+            "value": "[parameters('cortexProcessingMsDeployPackageUrl')]"
+          },
+          "cortexReportingMsDeployPackageUrl": {
+            "value": "[parameters('cortexReportingMsDeployPackageUrl')]"
+          },
+
+          "allowInvalidClientCertificates": {
+            "value": "[parameters('allowInvalidClientCertificates')]"
+          },
+
+          "passwordSalt": {
+            "value": "[parameters('passwordSalt')]"
+          },
+
+          "xcServerConfigurationEnvironment": {
+            "value": "[parameters('xcServerConfigurationEnvironment')]"
+          },
+
+          "machineLearningServerBlobEndpointCertificatePath": {
+            "value": "[parameters('machineLearningServerBlobEndpointCertificatePath')]"
+          },
+          "machineLearningServerBlobEndpointCertificatePassword": {
+            "value": "[parameters('machineLearningServerBlobEndpointCertificatePassword')]"
+          },
+          "machineLearningServerTableEndpointCertificatePath": {
+            "value": "[parameters('machineLearningServerTableEndpointCertificatePath')]"
+          },
+          "machineLearningServerTableEndpointCertificatePassword": {
+            "value": "[parameters('machineLearningServerTableEndpointCertificatePassword')]"
+          },
+          "machineLearningServerEndpointCertificationAuthorityCertificatePath": {
+            "value": "[parameters('machineLearningServerEndpointCertificationAuthorityCertificatePath')]"
+          },
+
+          "environmentType": {
+            "value": "[parameters('environmentType')]"
+          },
+
+          "azureServiceBusNamespaceName": {
+            "value" : "[parameters('azureServiceBusNamespaceName')]"
+          },
+          "azureServiceBusAccessKeyName": {
+            "value": "[parameters('azureServiceBusManageSharedAccessKeyName')]"
+          },
+          "xpPerformanceCountersType": {
+            "value": "[parameters('xpPerformanceCountersType')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-infrastructure-cortex-prc-rep'))]",
         "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-application-xc'))]",
         "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-infrastructure-asb'))]"
       ]
