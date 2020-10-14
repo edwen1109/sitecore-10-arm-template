@@ -557,6 +557,9 @@
     "xcCollectMsDeployPackageUrl": {
       "type": "securestring"
     },
+    "xcCollectDmzMsDeployPackageUrl": {
+      "type": "securestring"
+    },
     "xcSearchMsDeployPackageUrl": {
       "type": "securestring"
     },
@@ -1623,6 +1626,9 @@
           },
           "xcCollectMsDeployPackageUrl": {
             "value": "[parameters('xcCollectMsDeployPackageUrl')]"
+          },
+          "xcCollectDmzMsDeployPackageUrl": {
+            "value": "[parameters('xcCollectDmzMsDeployPackageUrl')]"
           },
           "xcSearchMsDeployPackageUrl": {
             "value": "[parameters('xcSearchMsDeployPackageUrl')]"

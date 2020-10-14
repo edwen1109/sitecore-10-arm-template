@@ -220,6 +220,10 @@
       "type": "securestring",
       "minLength": 1
     },
+    "xcCollectDmzMsDeployPackageUrl": {
+      "type": "securestring",
+      "minLength": 1
+    },
     "xcSearchMsDeployPackageUrl": {
       "type": "securestring",
       "minLength": 1
@@ -366,7 +370,7 @@
       "location": "[parameters('location')]",
       "apiVersion": "[variables('webApiVersion')]",
       "properties": {
-        "packageUri": "[parameters('xcCollectMsDeployPackageUrl')]",
+        "packageUri": "[parameters('xcCollectDmzMsDeployPackageUrl')]",
         "dbType": "SQL",
         "connectionString": "[concat('Data Source=tcp:', variables('sqlServerFqdnTidy'), ',1433;Initial Catalog=master;User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]",
         "setParameters": {

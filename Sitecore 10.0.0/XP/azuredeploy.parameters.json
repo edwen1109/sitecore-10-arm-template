@@ -44,6 +44,9 @@
     "xcCollectMsDeployPackageUrl": {
       "value": "<your storage account URL>/sitecore-packages/Sitecore 10.0.0 rev. 004346 (Cloud)_xp1collection.scwdp.zip"
     },
+    "xcCollectDmzMsDeployPackageUrl": {
+      "value": "<your storage account URL>/sitecore-packages/Sitecore 10.0.0 rev. 004346 (Cloud)_xp1collection.scwdp.zip"
+    },
     "xcSearchMsDeployPackageUrl": {
       "value": "<your storage account URL>/sitecore-packages/Sitecore 10.0.0 rev. 004346 (Cloud)_xp1collectionsearchsolr.scwdp.zip"
     },
