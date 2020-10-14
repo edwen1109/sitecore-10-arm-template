@@ -12,7 +12,7 @@
     "xcRefDataWebAppNameTidy": "[toLower(trim(parameters('xcRefDataWebAppName')))]",
     "xcCollectWebAppNameTidy": "[toLower(trim(parameters('xcCollectWebAppName')))]",
     "xcSearchWebAppNameTidy": "[toLower(trim(parameters('xcSearchWebAppName')))]",
-    "xcRefDataDmzWebAppNameTidy": "[toLower(trim(parameters('xcRefDmzDataWebAppName')))]",
+    "xcRefDataDmzWebAppNameTidy": "[toLower(trim(parameters('xcRefDataDmzWebAppName')))]",
     "xcCollectDmzWebAppNameTidy": "[toLower(trim(parameters('xcCollectDmzWebAppName')))]",
     "xcSearchDmzWebAppNameTidy": "[toLower(trim(parameters('xcSearchDmzWebAppName')))]",
     "maOpsWebAppNameTidy": "[toLower(trim(parameters('maOpsWebAppName')))]",

@@ -495,7 +495,7 @@
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-ma-ops')]"
     },
-    "xcRefDmzDataWebAppName": {
+    "xcRefDataDmzWebAppName": {
       "type": "string",
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-xc-refdata-public')]"
@@ -1753,8 +1753,8 @@
           "maOpsWebAppName": {
             "value": "[parameters('maOpsWebAppName')]"
           },
-          "xcRefDmzDataWebAppName": {
-            "value": "[parameters('xcRefDmzDataWebAppName')]"
+          "xcRefDataDmzWebAppName": {
+            "value": "[parameters('xcRefDataDmzWebAppName')]"
           },
           "xcCollectDmzWebAppName": {
             "value": "[parameters('xcCollectDmzWebAppName')]"
