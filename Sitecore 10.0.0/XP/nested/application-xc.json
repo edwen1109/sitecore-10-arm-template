@@ -316,7 +316,8 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Web/sites/config', variables('xcRefDataDmzWebAppNameTidy'),'appsettings')]"
+        "[resourceId('Microsoft.Web/sites/config', variables('xcRefDataDmzWebAppNameTidy'),'appsettings')]",
+        "[resourceId('Microsoft.Web/sites/extensions', variables('xcRefDataWebAppNameTidy'),'MSDeploy')]"
       ]
     },
     {
@@ -396,7 +397,8 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Web/sites/config', variables('xcCollectDmzWebAppNameTidy'), 'appsettings')]"
+        "[resourceId('Microsoft.Web/sites/config', variables('xcCollectDmzWebAppNameTidy'), 'appsettings')]",
+        "[resourceId('Microsoft.Web/sites/extensions', variables('xcCollectWebAppNameTidy'),'MSDeploy')]"
       ]
     },
     {

@@ -263,7 +263,8 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Web/sites/config', variables('xcSearchDmzWebAppNameTidy'), 'appsettings')]"
+        "[resourceId('Microsoft.Web/sites/config', variables('xcSearchDmzWebAppNameTidy'), 'appsettings')]",
+        "[resourceId('Microsoft.Web/sites/extensions', variables('xcSearchWebAppNameTidy'),'MSDeploy')]"
       ]
     },
     {

@@ -318,7 +318,10 @@
           "XConnect Server Instance Name": "MarketingAutomationPublic",
           "License Xml": "[parameters('licenseXml')]"
         }
-      }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites/extensions', variables('maOpsWebAppNameTidy'),'MSDeploy')]"
+      ]
     },
     {
       "name": "[concat(variables('maRepWebAppNameTidy'), '/', 'MSDeploy')]",
