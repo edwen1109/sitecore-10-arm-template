@@ -12,6 +12,7 @@
     "maSqlDatabaseNameTidy": "[toLower(trim(parameters('maSqlDatabaseName')))]",
 
     "xcSearchWebAppNameTidy": "[toLower(trim(parameters('xcSearchWebAppName')))]",
+    "xcSearchDmzWebAppNameTidy": "[toLower(trim(parameters('xcSearchDmzWebAppName')))]",
 
     "xcSearchIndexNameTidy": "[toLower(trim(parameters('xcSearchIndexName')))]",
     "appInsightsNameTidy": "[toLower(trim(parameters('applicationInsightsName')))]",
@@ -138,7 +139,11 @@
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-xc-search')]"
     },
-
+    "xcSearchDmzWebAppName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-search-public')]"
+    },
     "authCertificateThumbprint": {
       "type": "string",
       "minLength": 8,
@@ -225,7 +230,53 @@
       ]
     },
     {
+      "name": "[concat(variables('xcSearchDmzWebAppNameTidy'), '/', 'MSDeploy')]",
+      "type": "Microsoft.Web/sites/extensions",
+      "location": "[parameters('location')]",
+      "apiVersion": "[variables('webApiVersion')]",
+      "properties": {
+        "packageUri": "[parameters('xcSearchMsDeployPackageUrl')]",
+        "dbType": "SQL",
+        "connectionString": "[concat('Data Source=tcp:', variables('sqlServerFqdnTidy'), ',1433;Initial Catalog=master;User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]",
+        "setParameters": {
+          "IIS Web Application Name": "[variables('xcSearchDmzWebAppNameTidy')]",
+          "Database Server Name": "[variables('sqlServerFqdnTidy')]",
+          "Collection Database Server Name": "[variables('sqlServerFqdnTidy')]",
+          "Collection Shard Map Manager Database Name": "[variables('shardMapManagerSqlDatabaseNameTidy')]",
+          "Processing Pools Database Name": "[variables('poolsSqlDatabaseNameTidy')]",
+          "Marketing Automation Database Name": "[variables('maSqlDatabaseNameTidy')]",
+          "Messaging Connection String": "[listkeys(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.ServiceBus/namespaces/authorizationRules', variables('azureServiceBusNamespaceNameTidy'), parameters('azureServiceBusAccessKeyName')), variables('azureServiceBusVersion')).primaryConnectionString]",
+          "Collection Database Application User Name": "[parameters('xcShardMapManagerSqlDatabaseUserName')]",
+          "Collection Database Application User Password": "[parameters('xcShardMapManagerSqlDatabasePassword')]",
+          "Processing Pool Database Application User Name": "[parameters('poolsSqlDatabaseUserName')]",
+          "Processing Pool Database Application User Password": "[parameters('poolsSqlDatabasePassword')]",
+          "Marketing Automation Database Application User Name": "[parameters('xcMaSqlDatabaseUserName')]",
+          "Marketing Automation Database Application User Password": "[parameters('xcMaSqlDatabasePassword')]",
+          "XConnect Server Configuration Environment": "[parameters('xcServerConfigurationEnvironment')]",
+          "XConnect Server Certificate Validation Thumbprint": "[parameters('authCertificateThumbprint')]",
+          "Allow Invalid Client Certificates": "[parameters('allowInvalidClientCertificates')]",
+          "XConnect Server Application Insights Key": "[if(parameters('useApplicationInsights'), reference(resourceId('Microsoft.Insights/Components', variables('appInsightsNameTidy')), variables('appInsightsApiVersion')).InstrumentationKey, '')]",
+          "XP Performance Counters Type": "[if(parameters('useApplicationInsights'), concat('Sitecore:XConnect:Diagnostics:PerformanceCounters:', parameters('xpPerformanceCountersType')), 'Sitecore:XConnect:Diagnostics:PerformanceCounters:Disable')]",
+          "XConnect Server Instance Name": "CollectionSearchPulbic",
+          "License Xml": "[parameters('licenseXml')]",
+          "Search SOLR Core Application Connection String": "[variables('xcSolrConnectionString')]"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites/config', variables('xcSearchDmzWebAppNameTidy'), 'appsettings')]"
+      ]
+    },
+    {
       "name": "[concat(variables('xcSearchWebAppNameTidy'), '/', 'appsettings')]",
+      "type": "Microsoft.Web/sites/config",
+      "apiVersion": "[variables('webApiVersion')]",
+      "properties": {
+        "WEBSITE_DYNAMIC_CACHE": 0,
+        "SITECORE_ENVIRONMENT_TYPE": "[parameters('environmentType')]"
+      }
+    },
+    {
+      "name": "[concat(variables('xcSearchDmzWebAppNameTidy'), '/', 'appsettings')]",
       "type": "Microsoft.Web/sites/config",
       "apiVersion": "[variables('webApiVersion')]",
       "properties": {

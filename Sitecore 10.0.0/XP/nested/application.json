@@ -28,9 +28,14 @@
     "repWebAppNameTidy": "[toLower(trim(parameters('repWebAppName')))]",
     "xcCollectWebAppNameTidy": "[toLower(trim(parameters('xcCollectWebAppName')))]",
     "xcSearchWebAppNameTidy": "[toLower(trim(parameters('xcSearchWebAppName')))]",
-    "maOpsWebAppNameTidy": "[toLower(trim(parameters('maOpsWebAppName')))]",
-    "maRepWebAppNameTidy": "[toLower(trim(parameters('maRepWebAppName')))]",
     "xcRefDataWebAppNameTidy": "[toLower(trim(parameters('xcRefDataWebAppName')))]",
+    "maOpsWebAppNameTidy": "[toLower(trim(parameters('maOpsWebAppName')))]",
+    "xcCollectDmzWebAppNameTidy": "[toLower(trim(parameters('xcCollectDmzWebAppName')))]",
+    "xcSearchDmzWebAppNameTidy": "[toLower(trim(parameters('xcSearchDmzWebAppName')))]",
+    "xcRefDataDmzWebAppNameTidy": "[toLower(trim(parameters('xcRefDataDmzWebAppName')))]",
+    "maOpsDmzWebAppNameTidy": "[toLower(trim(parameters('maOpsDmzWebAppName')))]",
+    "maRepWebAppNameTidy": "[toLower(trim(parameters('maRepWebAppName')))]",
+    
     "cortexReportingWebAppNameTidy": "[toLower(trim(parameters('cortexReportingWebAppName')))]",
 
     "appInsightsNameTidy": "[toLower(trim(parameters('applicationInsightsName')))]",
@@ -333,21 +338,42 @@
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-xc-search')]"
     },
+    "xcRefDataWebAppName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-refdata')]"
+    },
     "maOpsWebAppName": {
       "type": "string",
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-ma-ops')]"
+    },
+    "xcCollectDmzWebAppName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-collect-public')]"
+    },
+    "xcSearchDmzWebAppName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-search-public')]"
+    },
+    "xcRefDataDmzWebAppName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-xc-refdata-public')]"
+    },
+    "maOpsDmzWebAppName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-ma-ops-public')]"
     },
     "maRepWebAppName": {
       "type": "string",
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-ma-rep')]"
     },
-    "xcRefDataWebAppName": {
-      "type": "string",
-      "minLength": 1,
-      "defaultValue": "[concat(parameters('deploymentId'), '-xc-refdata')]"
-    },
+    
     "cortexReportingWebAppName": {
       "type": "string",
       "minLength": 1,
@@ -603,9 +629,9 @@
                 "Experience Forms Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', variables('sqlServerFqdnTidy'), ',1433;Initial Catalog=',variables('formsSqlDatabaseNameTidy'),';User Id=', parameters('formsSqlDatabaseUserName'), ';Password=', parameters('formsSqlDatabasePassword'), ';')]",
                 "EXM Master Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', variables('sqlServerFqdnTidy'), ',1433;Initial Catalog=',variables('exmMasterSqlDatabaseNameTidy'),';User Id=', parameters('exmMasterSqlDatabaseUserName'), ';Password=', parameters('exmMasterSqlDatabasePassword'), ';')]",
                 "Messaging Connection String": "[listkeys(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.ServiceBus/namespaces/authorizationRules', variables('azureServiceBusNamespaceNameTidy'), parameters('azureServiceBusAccessKeyName')), variables('azureServiceBusVersion')).primaryConnectionString]",
-                "XConnect Collection": "[concat('https://', reference(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.Web/sites', variables('xcCollectWebAppNameTidy')), variables('webApiVersion')).hostNames[0])]",
-                "XDB Reference Data Client": "[concat('https://', reference(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.Web/sites', variables('xcRefDataWebAppNameTidy')), variables('webApiVersion')).hostNames[0])]",
-                "XDB MA Ops Client": "[concat('https://', reference(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.Web/sites', variables('maOpsWebAppNameTidy')), variables('webApiVersion')).hostNames[0])]",
+                "XConnect Collection": "[concat('https://', reference(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.Web/sites', variables('xcCollectDmzWebAppNameTidy')), variables('webApiVersion')).hostNames[0])]",
+                "XDB Reference Data Client": "[concat('https://', reference(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.Web/sites', variables('xcRefDataDmzWebAppNameTidy')), variables('webApiVersion')).hostNames[0])]",
+                "XDB MA Ops Client": "[concat('https://', reference(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.Web/sites', variables('maOpsDmzWebAppNameTidy')), variables('webApiVersion')).hostNames[0])]",
                 "Redis Sessions": "[concat(reference(resourceId('Microsoft.Cache/Redis', variables('redisCacheNameTidy')), variables('redisApiVersion')).hostName, ':', reference(resourceId('Microsoft.Cache/Redis', variables('redisCacheNameTidy')), variables('redisApiVersion')).sslPort, ',password=', listKeys(resourceId('Microsoft.Cache/Redis', variables('redisCacheNameTidy')), variables('redisApiVersion')).primaryKey, ',ssl=True,abortConnect=False')]",
                 "Search Provider": "[variables('searchProvider')]",
                 "Cloud Search Connection String": "[if(equals(variables('searchProvider'), 'Azure'), concat('serviceUrl=https://', variables('searchServiceNameTidy'), '.search.windows.net;apiVersion=', variables('searchRestApiVersion'), ';apiKey=', listAdminKeys(resourceId('Microsoft.Search/searchServices', variables('searchServiceNameTidy')), variables('searchApiVersion')).primaryKey), '')]",
