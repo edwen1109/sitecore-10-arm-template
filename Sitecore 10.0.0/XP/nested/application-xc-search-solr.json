@@ -10,6 +10,7 @@
     "poolsSqlDatabaseNameTidy": "[toLower(trim(parameters('poolsSqlDatabaseName')))]",
     "shardMapManagerSqlDatabaseNameTidy": "[toLower(trim(parameters('shardMapManagerSqlDatabaseName')))]",
     "maSqlDatabaseNameTidy": "[toLower(trim(parameters('maSqlDatabaseName')))]",
+    "messagingSqlDatabaseNameTidy": "[toLower(trim(parameters('messagingSqlDatabaseName')))]",
 
     "xcSearchWebAppNameTidy": "[toLower(trim(parameters('xcSearchWebAppName')))]",
     "xcSearchDmzWebAppNameTidy": "[toLower(trim(parameters('xcSearchDmzWebAppName')))]",
@@ -67,7 +68,21 @@
       "type": "securestring",
       "minLength": 8
     },
-
+    "messagingSqlDatabaseName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-messaging-db')]"
+    },
+    "messagingSqlDatabaseUserName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "messaginguser"
+    },
+    "messagingSqlDatabasePassword": {
+      "type": "securestring",
+      "minLength": 8,
+      "defaultValue": "[concat(toUpper(uniqueString('messaging', parameters('passwordSalt'))), uniqueString('messaging', parameters('sqlServerPassword'), parameters('passwordSalt')), toUpper(uniqueString('messaging', parameters('sitecoreAdminPassword'), parameters('passwordSalt'))), '4@')]"
+    },
     "poolsSqlDatabaseName": {
       "type": "string",
       "minLength": 1,
@@ -208,7 +223,7 @@
           "Collection Shard Map Manager Database Name": "[variables('shardMapManagerSqlDatabaseNameTidy')]",
           "Processing Pools Database Name": "[variables('poolsSqlDatabaseNameTidy')]",
           "Marketing Automation Database Name": "[variables('maSqlDatabaseNameTidy')]",
-          "Messaging Connection String": "[listkeys(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.ServiceBus/namespaces/authorizationRules', variables('azureServiceBusNamespaceNameTidy'), parameters('azureServiceBusAccessKeyName')), variables('azureServiceBusVersion')).primaryConnectionString]",
+          "Messaging Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', variables('sqlServerFqdnTidy'), ',1433;Initial Catalog=',variables('messagingSqlDatabaseNameTidy'),';User Id=', parameters('messagingSqlDatabaseUserName'), ';Password=', parameters('messagingSqlDatabasePassword'), ';')]",
           "Collection Database Application User Name": "[parameters('xcShardMapManagerSqlDatabaseUserName')]",
           "Collection Database Application User Password": "[parameters('xcShardMapManagerSqlDatabasePassword')]",
           "Processing Pool Database Application User Name": "[parameters('poolsSqlDatabaseUserName')]",
@@ -245,7 +260,7 @@
           "Collection Shard Map Manager Database Name": "[variables('shardMapManagerSqlDatabaseNameTidy')]",
           "Processing Pools Database Name": "[variables('poolsSqlDatabaseNameTidy')]",
           "Marketing Automation Database Name": "[variables('maSqlDatabaseNameTidy')]",
-          "Messaging Connection String": "[listkeys(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.ServiceBus/namespaces/authorizationRules', variables('azureServiceBusNamespaceNameTidy'), parameters('azureServiceBusAccessKeyName')), variables('azureServiceBusVersion')).primaryConnectionString]",
+          "Messaging Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', variables('sqlServerFqdnTidy'), ',1433;Initial Catalog=',variables('messagingSqlDatabaseNameTidy'),';User Id=', parameters('messagingSqlDatabaseUserName'), ';Password=', parameters('messagingSqlDatabasePassword'), ';')]",
           "Collection Database Application User Name": "[parameters('xcShardMapManagerSqlDatabaseUserName')]",
           "Collection Database Application User Password": "[parameters('xcShardMapManagerSqlDatabasePassword')]",
           "Processing Pool Database Application User Name": "[parameters('poolsSqlDatabaseUserName')]",

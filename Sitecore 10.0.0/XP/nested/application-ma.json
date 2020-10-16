@@ -9,6 +9,7 @@
     "maSqlDatabaseNameTidy": "[toLower(trim(parameters('maSqlDatabaseName')))]",
     "refDataSqlDatabaseNameTidy": "[toLower(trim(parameters('refDataSqlDatabaseName')))]",
     "shardMapManagerSqlDatabaseNameTidy": "[toLower(trim(parameters('shardMapManagerSqlDatabaseName')))]",
+    "messagingSqlDatabaseNameTidy": "[toLower(trim(parameters('messagingSqlDatabaseName')))]",
     "xcRefDataWebAppNameTidy": "[toLower(trim(parameters('xcRefDataWebAppName')))]",
     "xcCollectWebAppNameTidy": "[toLower(trim(parameters('xcCollectWebAppName')))]",
     "xcSearchWebAppNameTidy": "[toLower(trim(parameters('xcSearchWebAppName')))]",
@@ -123,6 +124,21 @@
       "type": "securestring",
       "minLength": 8,
       "defaultValue": "[concat(toUpper(uniqueString('xcsmm', parameters('passwordSalt'))), uniqueString('xcsmm', parameters('sqlServerPassword'), parameters('passwordSalt')), toUpper(uniqueString('xcsmm', parameters('sitecoreAdminPassword'), parameters('passwordSalt'))), '4@')]"
+    },
+    "messagingSqlDatabaseName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-messaging-db')]"
+    },
+    "messagingSqlDatabaseUserName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "messaginguser"
+    },
+    "messagingSqlDatabasePassword": {
+      "type": "securestring",
+      "minLength": 8,
+      "defaultValue": "[concat(toUpper(uniqueString('messaging', parameters('passwordSalt'))), uniqueString('messaging', parameters('sqlServerPassword'), parameters('passwordSalt')), toUpper(uniqueString('messaging', parameters('sitecoreAdminPassword'), parameters('passwordSalt'))), '4@')]"
     },
     "useApplicationInsights": {
       "type": "bool",
@@ -254,7 +270,7 @@
           "Collection Database Application User Name": "[parameters('xcShardMapManagerSqlDatabaseUserName')]",
           "Collection Database Application User Password": "[parameters('xcShardMapManagerSqlDatabasePassword')]",
           "Marketing Automation Database Name": "[variables('maSqlDatabaseNameTidy')]",
-          "Messaging Connection String": "[listkeys(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.ServiceBus/namespaces/authorizationRules', variables('azureServiceBusNamespaceNameTidy'), parameters('azureServiceBusAccessKeyName')), variables('azureServiceBusVersion')).primaryConnectionString]",
+          "Messaging Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', variables('sqlServerFqdnTidy'), ',1433;Initial Catalog=',variables('messagingSqlDatabaseNameTidy'),';User Id=', parameters('messagingSqlDatabaseUserName'), ';Password=', parameters('messagingSqlDatabasePassword'), ';')]",
           "Reference Data Database Name": "[variables('refDataSqlDatabaseNameTidy')]",
           "Reference Data Database Application User Name": "[parameters('xcRefDataSqlDatabaseUserName')]",
           "Reference Data Database Application User Password": "[parameters('xcRefDataSqlDatabasePassword')]",
@@ -298,7 +314,7 @@
           "Collection Database Application User Name": "[parameters('xcShardMapManagerSqlDatabaseUserName')]",
           "Collection Database Application User Password": "[parameters('xcShardMapManagerSqlDatabasePassword')]",
           "Marketing Automation Database Name": "[variables('maSqlDatabaseNameTidy')]",
-          "Messaging Connection String": "[listkeys(resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.ServiceBus/namespaces/authorizationRules', variables('azureServiceBusNamespaceNameTidy'), parameters('azureServiceBusAccessKeyName')), variables('azureServiceBusVersion')).primaryConnectionString]",
+          "Messaging Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', variables('sqlServerFqdnTidy'), ',1433;Initial Catalog=',variables('messagingSqlDatabaseNameTidy'),';User Id=', parameters('messagingSqlDatabaseUserName'), ';Password=', parameters('messagingSqlDatabasePassword'), ';')]",
           "Reference Data Database Name": "[variables('refDataSqlDatabaseNameTidy')]",
           "Reference Data Database Application User Name": "[parameters('xcRefDataSqlDatabaseUserName')]",
           "Reference Data Database Application User Password": "[parameters('xcRefDataSqlDatabasePassword')]",

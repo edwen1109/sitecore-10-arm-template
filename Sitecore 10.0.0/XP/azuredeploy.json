@@ -184,7 +184,21 @@
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-processingenginestorage-db')]"
     },
-
+    "messagingSqlDatabaseName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('deploymentId'), '-messaging-db')]"
+    },
+    "messagingSqlDatabaseUserName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "messaginguser"
+    },
+    "messagingSqlDatabasePassword": {
+      "type": "securestring",
+      "minLength": 8,
+      "defaultValue": "[concat(toUpper(uniqueString('messaging', parameters('passwordSalt'))), uniqueString('messaging', parameters('sqlServerPassword'), parameters('passwordSalt')), toUpper(uniqueString('messaging', parameters('sitecoreAdminPassword'), parameters('passwordSalt'))), '4@')]"
+    },
     "coreSqlDatabaseUserName": {
       "type": "string",
       "minLength": 1,
@@ -1019,6 +1033,9 @@
           "refDataSqlDatabaseName": {
             "value": "[parameters('refDataSqlDatabaseName')]"
           },
+          "messagingSqlDatabaseName": {
+            "value": "[parameters('messagingSqlDatabaseName')]"
+          },
           "xcHostingPlanName": {
             "value": "[parameters('xcHostingPlanName')]"
           },
@@ -1293,7 +1310,15 @@
           "exmMasterSqlDatabaseName": {
             "value": "[parameters('exmMasterSqlDatabaseName')]"
           },
-
+          "messagingSqlDatabaseName": {
+            "value": "[parameters('messagingSqlDatabaseName')]"
+          },
+          "messagingSqlDatabaseUserName": {
+            "value": "[parameters('messagingSqlDatabaseUserName')]"
+          },
+          "messagingSqlDatabasePassword": {
+            "value": "[parameters('messagingSqlDatabasePassword')]"
+          },
           "coreSqlDatabaseUserName": {
             "value": "[parameters('coreSqlDatabaseUserName')]"
           },
@@ -1558,7 +1583,15 @@
           "maSqlDatabaseName": {
             "value": "[parameters('maSqlDatabaseName')]"
           },
-
+          "messagingSqlDatabaseName": {
+            "value": "[parameters('messagingSqlDatabaseName')]"
+          },
+          "messagingSqlDatabaseUserName": {
+            "value": "[parameters('messagingSqlDatabaseUserName')]"
+          },
+          "messagingSqlDatabasePassword": {
+            "value": "[parameters('messagingSqlDatabasePassword')]"
+          },
           "poolsSqlDatabaseUserName": {
             "value": "[parameters('poolsSqlDatabaseUserName')]"
           },
@@ -1714,7 +1747,15 @@
           "shardMapManagerSqlDatabaseName": {
             "value": "[parameters('shardMapManagerSqlDatabaseName')]"
           },
-
+          "messagingSqlDatabaseName": {
+            "value": "[parameters('messagingSqlDatabaseName')]"
+          },
+          "messagingSqlDatabaseUserName": {
+            "value": "[parameters('messagingSqlDatabaseUserName')]"
+          },
+          "messagingSqlDatabasePassword": {
+            "value": "[parameters('messagingSqlDatabasePassword')]"
+          },
           "poolsSqlDatabaseUserName": {
             "value": "[parameters('poolsSqlDatabaseUserName')]"
           },
@@ -1859,7 +1900,15 @@
           "reportingSqlDatabaseName": {
             "value": "[parameters('reportingSqlDatabaseName')]"
           },
-
+          "messagingSqlDatabaseName": {
+            "value": "[parameters('messagingSqlDatabaseName')]"
+          },
+          "messagingSqlDatabaseUserName": {
+            "value": "[parameters('messagingSqlDatabaseUserName')]"
+          },
+          "messagingSqlDatabasePassword": {
+            "value": "[parameters('messagingSqlDatabasePassword')]"
+          },
           "processingEngineSqlDatabaseUserName": {
             "value": "[parameters('processingEngineSqlDatabaseUserName')]"
           },
@@ -2201,7 +2250,7 @@
               "refDataSqlDatabaseName": "[parameters('refDataSqlDatabaseName')]",
               "processingEngineTasksSqlDatabaseName": "[parameters('processingEngineTasksSqlDatabaseName')]",
               "processingEngineStorageSqlDatabaseName": "[parameters('processingEngineStorageSqlDatabaseName')]",
-
+              "messagingSqlDatabaseName": "[parameters('messagingSqlDatabaseName')]",
               "maSqlDatabaseName": "[parameters('maSqlDatabaseName')]",
 
               "coreSqlDatabaseUserName": "[parameters('coreSqlDatabaseUserName')]",
@@ -2226,6 +2275,8 @@
               "xcMaSqlDatabasePassword": "[parameters('xcMaSqlDatabasePassword')]",
               "processingEngineSqlDatabaseUserName": "[parameters('processingEngineSqlDatabaseUserName')]",
               "processingEngineSqlDatabasePassword": "[parameters('processingEngineSqlDatabasePassword')]",
+              "messagingSqlDatabaseUserName": "[parameters('messagingSqlDatabaseUserName')]",
+              "messagingSqlDatabasePassword": "[parameters('messagingSqlDatabasePassword')]",
 
               "searchServiceName": "[parameters('searchServiceName')]",
               "searchServiceLocation": "[parameters('searchServiceLocation')]",
