@@ -952,49 +952,6 @@
     },
     {
       "apiVersion": "[variables('resourcesApiVersion')]",
-      "name": "[concat(parameters('deploymentId'), '-infrastructure-asb')]",
-      "type": "Microsoft.Resources/deployments",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[concat(uri(parameters('templateLinkBase'), 'nested/infrastructure-asb.json'), parameters('templateLinkAccessToken'))]"
-        },
-        "parameters": {
-          "deploymentId": {
-            "value": "[parameters('deploymentId')]"
-          },
-          "location": {
-            "value": "[parameters('location')]"
-          },
-          "templateLinkAccessToken": {
-            "value": "[parameters('templateLinkAccessToken')]"
-          },
-          "azureServiceBusQueues": {
-            "value": "[parameters('azureServiceBusQueues')]"
-          },
-          "azureServiceBusTopics": {
-            "value": "[parameters('azureServiceBusTopics')]"
-          },
-          "azureServiceBusSubscriptions": {
-            "value": "[parameters('azureServiceBusSubscriptions')]"
-          },
-          "azureServiceBusSkuName": {
-            "value": "[parameters('azureServiceBusSkuName')]"
-          },
-          "azureServiceBusManageSharedAccessKeyName": {
-            "value": "[parameters('azureServiceBusManageSharedAccessKeyName')]"
-          },
-          "azureServiceBusSharedAccessKeyName": {
-            "value": "[parameters('azureServiceBusSharedAccessKeyName')]"
-          },
-          "azureServiceBusNamespaceName": {
-            "value": "[parameters('azureServiceBusNamespaceName')]"
-          }
-        }
-      }
-    },
-    {
-      "apiVersion": "[variables('resourcesApiVersion')]",
       "name": "[concat(parameters('deploymentId'), '-infrastructure-xc')]",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -1695,8 +1652,7 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-infrastructure-ma'))]",
-        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-infrastructure-asb'))]"
+        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-infrastructure-ma'))]"
       ]
     },
     {
@@ -1851,8 +1807,7 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-application-xc'))]",
-        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-infrastructure-asb'))]"
+        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-application-xc'))]"
       ]
     },
     {
@@ -1998,8 +1953,7 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-infrastructure-cortex-prc-rep'))]",
-        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-application-xc'))]",
-        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-infrastructure-asb'))]"
+        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-application-xc'))]"
       ]
     },
     {
@@ -2200,8 +2154,7 @@
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-infrastructure'))]",
         "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-infrastructure-exm'))]",
-        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-application'))]",
-        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-infrastructure-asb'))]"
+        "[resourceId('Microsoft.Resources/deployments', concat(parameters('deploymentId'), '-application'))]"
       ]
     },
     {
