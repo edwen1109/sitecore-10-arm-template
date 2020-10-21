@@ -53,7 +53,7 @@
       "forms": "forms",
       "exmmaster" : "exmmaster"
     },
-
+    "redisSubnetId": "[resourceId(parameters('redisVirtualNetworkResourceGroupName'),'Microsoft.Network/virtualNetworks/subnets', parameters('redisVirtualNetworkName'), parameters('redisSubnetName'))]",
     "useAse": "[not(empty(parameters('aseName')))]",
     "aseResourceId": "[resourceId(parameters('aseResourceGroupName'), 'Microsoft.Web/hostingEnvironments', parameters('aseName'))]",
     "dmzAseResourceId": "[resourceId(parameters('dmzAseResourceGroupName'), 'Microsoft.Web/hostingEnvironments', parameters('dmzAseName'))]",
@@ -126,7 +126,25 @@
         "description": "Sitecore SKU controls the sizes and service levels of the provisioned resources"
       }
     },
-
+    "redisVirtualNetworkResourceGroupName": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().name]",
+      "metadata": {
+        "description": "The resource group of the existing Virtual Network."
+      }
+    },
+    "redisVirtualNetworkName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the existing Virtual Network."
+      }
+    },
+    "redisSubnetName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the existing subnet."
+      }
+    },
     "sqlServerName": {
       "type": "string",
       "minLength": 1,
@@ -1455,7 +1473,8 @@
           "family": "[parameters('resourceSizes').redisCache.SkuFamily]",
           "capacity": "[parameters('resourceSizes').redisCache.SkuCapacity]"
         },
-        "enableNonSslPort": false
+        "enableNonSslPort": false,
+        "subnetId": "[variables('redisSubnetId')]"
       },
       "tags": {
         "provider": "[variables('sitecoreTags').provider]"

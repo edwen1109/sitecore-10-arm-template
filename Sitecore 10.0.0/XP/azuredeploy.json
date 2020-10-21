@@ -74,6 +74,25 @@
         "description": "Sitecore SKU controls the sizes and service levels of the provisioned resources"
       }
     },
+    "redisVirtualNetworkResourceGroupName": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().name]",
+      "metadata": {
+        "description": "The resource group of the existing Virtual Network."
+      }
+    },
+    "redisVirtualNetworkName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the existing Virtual Network."
+      }
+    },
+    "redisSubnetName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the existing subnet."
+      }
+    },
     "repAuthenticationApiKey": {
       "type": "securestring",
       "minLength": 32
@@ -817,7 +836,15 @@
           "sitecoreSKU": {
             "value": "[parameters('sitecoreSKU')]"
           },
-
+          "redisVirtualNetworkResourceGroupName": {
+            "value": "[parameters('redisVirtualNetworkResourceGroupName')]"
+          },
+          "redisVirtualNetworkName": {
+            "value": "[parameters('redisVirtualNetworkName')]"
+          },
+          "redisSubnetName": {
+            "value": "[parameters('redisSubnetName')]"
+          },
           "sqlServerName": {
             "value": "[parameters('sqlServerName')]"
           },

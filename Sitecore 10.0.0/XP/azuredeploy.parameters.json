@@ -79,6 +79,15 @@
     },
     "dmzAseResourceGroupName": {
       "value": ""
+    },
+    "redisVirtualNetworkResourceGroupName": {
+      "value": ""
+    },
+    "redisVirtualNetworkName": {
+      "value": ""
+    },
+    "redisSubnetName": {
+      "value": ""
     }
   }
 }
